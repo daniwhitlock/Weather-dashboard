@@ -10,22 +10,22 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class= "flex-column min-100-vh">
     <header>
-        <h1 class = "bg-dark">
+        <h1 class = "bg-dark text-light text-center ">
             Weather Dashboard
         </h1>
     </header>
 
 
-    <main>
+    <main class="flex-row justify-space-between">
         <!-- left column -->
-        <div>
-            <div>
-                <h3> Search for a City: </h3>
-                <div>
-                    <input name="city-name" id="city-name" type="text" autofocus="true" class="NEEDTOADD" />
-                    <button id="submit" class="NEEDTOADD"><i class="fas fa-search"></i></button>
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <h3 class="card-header"> Search for a City: </h3>
+                <div class="card-body">
+                    <input name="city-name" id="city-name" type="text" autofocus="true" class="input-container" />
+                    <button id="submit" class="btn"><i class="fas fa-search"></i></button>
                 </div>
                 <!-- list saved searches -->
                 <ul id="list-of-cities">
@@ -36,10 +36,10 @@
         </div>
 
         <!-- right column -->
-        <div>
+        <div class="col-12 col-md-8">
             <!-- current city, current temp -->
-            <div>
-                <h2 class = "current-day-info">
+            <div class="card">
+                <h2>
                     <span id="current-city"> </span>
                     <span id="current-day"></span>
                     <img id="weather-icon"><img>   
@@ -48,17 +48,17 @@
                 <p>Temperature: <span id="temperature"><!--current temp for city--></span></p>
                 <p>Humidity: <span id="humidity"><!--current humidity for city--></span></p>
                 <p>Wind Speed: <span id="wind-speed"><!--current wind speed for city--></span></p>
-                <p>UV Index: <span id="uv-index"><!--current UV index for city--></span></p>
+                <p>UV Index: <span id="uv-index" class="border border-red"><!--current UV index for city--></span></p>
             </div>
 
             <!-- future 5-day forcast -->
-            <div>
-                <h2>5-Day Forecast:</h2>
-                <div id="day-1"></div>
-                <div id="day-2"></div>
-                <div id="day-3"></div>
-                <div id="day-4"></div>
-                <div id="day-5"></div>
+            <div >
+                <h2 >5-Day Forecast:</h2>
+                <div class="card" id="day-1"></div>
+                <div class="card" id="day-2"></div>
+                <div class="card" id="day-3"></div>
+                <div class="card" id="day-4"></div>
+                <div class="card" id="day-5"></div>
                
             </div>
            

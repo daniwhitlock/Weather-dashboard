@@ -20,7 +20,12 @@ submitBtnEl.addEventListener("click", function(){
     var city = cityNameEl.value;
     // console.log(city);
     getTemperature(city);
+    
     //add new city to array then reset localStorage
+    
+    console.log(cities);
+    localStorage.setItem(cities, city);
+    $("#list-of-cities").val(localStorage.getItem());
 
 });
 
