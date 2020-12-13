@@ -15,8 +15,9 @@ var cities =[];
     // create the list item and add the new city to cities
     //append to front end
 
-
+console.log(cities);
 submitBtnEl.addEventListener("click", function(){
+    console.log(cities);
     var city = cityNameEl.value;
     // console.log(city);
     getTemperature(city);
