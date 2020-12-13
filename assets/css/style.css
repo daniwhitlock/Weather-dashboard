@@ -34,16 +34,48 @@
 
 .border-green {
     background-color: green;
+    padding: 1px 5px 1px 5px;
+    border-radius: .3rem;
+    color: white;
+    font-weight: bold;
 }
 .border-yellow {
     background-color: yellow;
+    padding: 1px 5px 1px 5px;
+    border-radius: .3rem;
+    color: black;
+    font-weight: bold;
 }
 .border-orange {
-    background-color: orange;
+    background-color: rgb(247, 163, 9);
+    padding: 1px 5px 1px 5px;
+    border-radius: .3rem;
+    color:white;
+    font-weight: bold;
 }
 .border-red {
     background-color: red;
+    padding: 1px 5px 1px 5px;
+    border-radius: .3rem;
+    color: white;
+    font-weight: bold;
 }
 .border-pink {
     background-color: rgb(228, 8, 228);
+    padding: 1px 5px 1px 5px;
+    border-radius: .3rem;
+    color: white;
+    font-weight: bold;
+}
+
+.five-card-header {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+
+.five-card-text {
+    color: white;
+    font-weight: light;
 }

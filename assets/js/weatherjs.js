@@ -11,25 +11,43 @@ var temperatureEl = document.querySelector("#temperature");
 var apiKey = "3ae9d49bbb3c0b44a518fccbf10f8e1a"
 var cities =[];
 
-//function for listItem for all cities
-    // create the list item and add the new city to cities
-    //append to front end
 
-console.log(cities);
+
+
+//Multiple Cities list out
+var citiesMakeList = function (cities) {
+     // create the list item and add the new city to cities
+    //append to front end
+    for (var i = 0; i < cities.length; i++) {
+        var citiesList = $("<li>").addClass("list-group-item").text(cities[i]);
+        $("#list-of-cities").append(citiesList);
+    }
+};
+
+var cityMakeList = function (city){
+    var citiesList = $("<li>").addClass("list-group-item").text(city);
+    $("#list-of-cities").append(citiesList);
+};
+
+//List out cities saved in local Storage and append to page
+cities =JSON.parse(localStorage.getItem("cities")) || [];;
+citiesMakeList(cities);
+    
+
 submitBtnEl.addEventListener("click", function(){
-    console.log(cities);
+    // console.log(cities);
     var city = cityNameEl.value;
     // console.log(city);
+    cities =JSON.parse(localStorage.getItem("cities")) || [];;
+    cityMakeList(city);
     getTemperature(city);
     
     //add new city to array then reset localStorage
     cities.push(city);
-    console.log(cities);
+    // console.log(cities);
     var cityString = JSON.stringify(cities);
     localStorage.setItem("cities", cityString);
-    var savedCity =JSON.parse(localStorage.getItem("cities"));
-    console.log("savedCity");
-    console.log(savedCity);
+    // console.log(cities);
 
 });
 
@@ -40,7 +58,7 @@ var getTemperature = function(city) {
             return response.json();
         })
         .then(function(data) { //use data since we used reponse above
-            console.log(data);
+            // console.log(data);
             //grab information from the data spot for city, date, and icon for weather description
             currentCityEl.textContent = city;
             $("#current-day").text(moment().format("DD/MM/YYYY"));
@@ -72,32 +90,24 @@ var getUvIndex = function(lat, lon) {
             // console.log(data);
             var uvIndex = data.value;
             uvIndexEl.textContent = uvIndex; 
-            console.log(uvIndex);
+            // console.log(uvIndex);
             if (uvIndex < 3 ){
                 uvIndexEl.classList.add("border-green");
-                console.log("green");
             }
             else if (uvIndex > 3 && uvIndex < 6 ){
                 uvIndexEl.classList.add("border-yellow");
-                console.log("yellow");
             }
             else if (uvIndex > 6 && uvIndex < 8 ){
                 uvIndexEl.classList.add("border-orange");
-                console.log("orange");
             }
             else if (uvIndex > 8 && uvIndex < 10 ){
                 uvIndexEl.classList.add("border-red");
-                console.log("red");
             }
             else if (uvIndex > 11){
                 uvIndexEl.classList.add("border-pink");
-                console.log("pink");
             }
-        
         })
-    ;
-   
-    
+    ; 
 };
 
 var fiveDayWeather = function(city) {
@@ -108,18 +118,32 @@ var fiveDayWeather = function(city) {
         })
         .then(function(data){
             // console.log(data);
-
             //.filter through the list of 40 ---- .includes picks the time from the list
             const dailyData = data.list.filter(day => {  
                 return day.dt_txt.includes("12:00:00")
             });
-            // console.log(dailyData);
+            console.log(dailyData);
             for(var i=0; i < dailyData.length; i++) {
+                var dailyColumn = $("<div>").addClass("column");
+                var dailyCard = $("<div>").addClass("card");
+                var cardHeader = $("<h2>").addClass("five-card-header");
+                var weatherType = dailyData.weather[i].icon;
+                var cardIcon = $("img").attr("src", "https://openweathermap.org/img/w/" + weatherType + ".png");
+                var cardTextEl = $("<p>").addClass("five-card-text");
+                var cardTemp = [i].main.temp;
+                $cardTemp.textContent = temperature + " °F";
+
+                 
+                dailyColumn.append(dailyCard);
                 //create a div with class of column, then card,  then put the card inside column, and put the data insde the card
                 //create variables first
                 //then append info to card
                 //append card to column
                 //append column to page
+
+                var citiesList = $("<li>").addClass("list-group-item").text(cities[i]);
+                $("#list-of-cities").append(citiesList);
+            }
             }
         });
 }

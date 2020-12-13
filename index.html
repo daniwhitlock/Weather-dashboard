@@ -28,7 +28,8 @@
                     <button id="submit" class="btn"><i class="fas fa-search"></i></button>
                 </div>
                 <!-- list saved searches -->
-                <ul id="list-of-cities">
+                <ul id="list-of-cities" class ="list-group"><span class = "card-header h3"
+                >Past City Searches:</span>
                     <!-- in javascript when something is saved, need to have it listed out and DOM populate a div with the searched city that, when click,ed will pull up that cities weather -->
                 </ul>
 
@@ -39,8 +40,8 @@
         <div class="col-12 col-md-8">
             <!-- current city, current temp -->
             <div class="card">
-                <h2>
-                    <span id="current-city"> </span>
+                <h2 class = "card-header">
+                    <span id="current-city"> City Name: </span>
                     <span id="current-day"></span>
                     <img id="weather-icon"><img>   
                 </h2>
@@ -48,30 +49,23 @@
                 <p>Temperature: <span id="temperature"><!--current temp for city--></span></p>
                 <p>Humidity: <span id="humidity"><!--current humidity for city--></span></p>
                 <p>Wind Speed: <span id="wind-speed"><!--current wind speed for city--></span></p>
-                <p>UV Index: <span id="uv-index" class="border"><!--current UV index for city--></span></p>
+                <p>UV Index: <span id="uv-index" ><!--current UV index for city--></span></p>
             </div>
-
+        </br>
             <!-- future 5-day forcast -->
             <div >
-                <h2 >5-Day Forecast:</h2>
-                <div class="card" id="day-1"></div>
-                <div class="card" id="day-2"></div>
-                <div class="card" id="day-3"></div>
-                <div class="card" id="day-4"></div>
-                <div class="card" id="day-5"></div>
+                <h2>5-Day Forecast:</h2>
+                <div class ="container " id="future-forecast">
+                    <div class ="card">HEre I am</div>
+                
+                </div>
+                
+            
                
             </div>
            
-
         </div>
-
-
-
     </main>
-
-
-
-
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
