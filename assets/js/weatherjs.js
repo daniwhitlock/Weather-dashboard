@@ -22,10 +22,13 @@ submitBtnEl.addEventListener("click", function(){
     getTemperature(city);
     
     //add new city to array then reset localStorage
-    
+    cities.push(city);
     console.log(cities);
-    localStorage.setItem(cities, city);
-    $("#list-of-cities").val(localStorage.getItem());
+    var cityString = JSON.stringify(cities);
+    localStorage.setItem("cities", cityString);
+    var savedCity =JSON.parse(localStorage.getItem("cities"));
+    console.log("savedCity");
+    console.log(savedCity);
 
 });
 
@@ -68,7 +71,32 @@ var getUvIndex = function(lat, lon) {
             // console.log(data);
             var uvIndex = data.value;
             uvIndexEl.textContent = uvIndex; 
-        });
+            console.log(uvIndex);
+            if (uvIndex < 3 ){
+                uvIndexEl.classList.add("border-green");
+                console.log("green");
+            }
+            else if (uvIndex > 3 && uvIndex < 6 ){
+                uvIndexEl.classList.add("border-yellow");
+                console.log("yellow");
+            }
+            else if (uvIndex > 6 && uvIndex < 8 ){
+                uvIndexEl.classList.add("border-orange");
+                console.log("orange");
+            }
+            else if (uvIndex > 8 && uvIndex < 10 ){
+                uvIndexEl.classList.add("border-red");
+                console.log("red");
+            }
+            else if (uvIndex > 11){
+                uvIndexEl.classList.add("border-pink");
+                console.log("pink");
+            }
+        
+        })
+    ;
+   
+    
 };
 
 var fiveDayWeather = function(city) {
