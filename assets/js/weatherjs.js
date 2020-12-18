@@ -8,6 +8,8 @@ var windSpeedEl = document.querySelector("#wind-speed");
 var humidityEl = document.querySelector("#humidity");
 var temperatureEl = document.querySelector("#temperature");
 
+var futureEl = document.querySelector("#future-forecast");
+
 var apiKey = "3ae9d49bbb3c0b44a518fccbf10f8e1a"
 var cities =[];
 
@@ -37,6 +39,12 @@ citiesMakeList(cities);
 submitBtnEl.addEventListener("click", function(){
     // console.log(cities);
     var city = cityNameEl.value;
+
+    //hide previous cards
+    $(".five-day").hide();
+
+    //remove border colors
+    $(uvIndexEl).removeClass("border-pink border-green border-yellow border-orange border-red");
     // console.log(city);
     cities =JSON.parse(localStorage.getItem("cities")) || [];;
     cityMakeList(city);
@@ -62,7 +70,7 @@ var getTemperature = function(city) {
             //grab information from the data spot for city, date, and icon for weather description
             currentCityEl.textContent = city;
             $("#current-day").text(moment().format("DD/MM/YYYY"));
-
+            console.log(data);
             var weatherType = data.weather[0].icon;
             weatherIconEl.setAttribute("src", "https://openweathermap.org/img/w/" + weatherType + ".png"); 
 
@@ -94,7 +102,7 @@ var getUvIndex = function(lat, lon) {
             if (uvIndex < 3 ){
                 uvIndexEl.classList.add("border-green");
             }
-            else if (uvIndex > 3 && uvIndex < 6 ){
+            else if (uvIndex < 6 && uvIndex > 3){
                 uvIndexEl.classList.add("border-yellow");
             }
             else if (uvIndex > 6 && uvIndex < 8 ){
@@ -117,35 +125,54 @@ var fiveDayWeather = function(city) {
             return response.json();
         })
         .then(function(data){
-            // console.log(data);
+            console.log(data);
             //.filter through the list of 40 ---- .includes picks the time from the list
             const dailyData = data.list.filter(day => {  
                 return day.dt_txt.includes("12:00:00")
             });
             console.log(dailyData);
-            for(var i=0; i < dailyData.length; i++) {
-                var dailyColumn = $("<div>").addClass("column");
-                var dailyCard = $("<div>").addClass("card");
-                var cardHeader = $("<h2>").addClass("five-card-header");
-                var weatherType = dailyData.weather[i].icon;
-                var cardIcon = $("img").attr("src", "https://openweathermap.org/img/w/" + weatherType + ".png");
-                var cardTextEl = $("<p>").addClass("five-card-text");
-                var cardTemp = [i].main.temp;
-                $cardTemp.textContent = temperature + " °F";
+            
+            for(var i= 0; i < dailyData.length; i++) {
+                //create a div with class of column, then card,  then put the card inside column, and put the data inside the card
 
-                 
-                dailyColumn.append(dailyCard);
-                //create a div with class of column, then card,  then put the card inside column, and put the data insde the card
-                //create variables first
-                //then append info to card
-                //append card to column
-                //append column to page
+                //create card
+                var cardFiveDay = document.createElement("div");
+                cardFiveDay.classList.add("card", "blue-background", "five-day");
+                    
+                //header-date-create h2 element
+                var cardHeader = document.createElement("h2");
+                cardHeader.classList.add("five-card-header");
+                var dateFiveDay = dailyData[i].dt_txt.split(" ")[0];
+                cardHeader.textContent = dateFiveDay;
 
-                var citiesList = $("<li>").addClass("list-group-item").text(cities[i]);
-                $("#list-of-cities").append(citiesList);
-            }
+                //icon-img
+                var cardIconFiveDay = document.createElement("img");
+                var weatherTypeFiveDay = dailyData[i].weather[0].icon;
+                cardIconFiveDay.setAttribute("src", "https://openweathermap.org/img/w/" + weatherTypeFiveDay + ".png" );
+                
+                //append icon to header so they are in same row and append to card
+                cardHeader.appendChild(cardIconFiveDay);
+                cardFiveDay.appendChild(cardHeader);
+
+                // temperature
+                var cardText = document.createElement("p");
+                cardText.classList.add("five-card-text");
+                var cardTemp = dailyData[i].main.temp;
+                cardText.textContent = "Temperature: " + cardTemp  + " °F";;
+                cardFiveDay.appendChild(cardText);
+
+                // humidity
+                var cardTextTwo = document.createElement("p");
+                cardTextTwo.classList.add("five-card-text");
+                var cardHumidity = dailyData[i].main.humidity;
+                cardTextTwo.textContent = "Humidity: " + cardHumidity  + "%";;
+                cardFiveDay.appendChild(cardTextTwo);
+                
+                //append card to page
+                futureEl.appendChild(cardFiveDay);
+
             }
         });
-}
+};
 
 // make different functions for each call, uv index (latitude and longitude- get from main weather), temperature

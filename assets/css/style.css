@@ -14,6 +14,12 @@
     box-shadow: 2px 2px darkgray;
 }
 
+.card {
+    display: inline-block;
+    margin: auto 10px 10px auto;
+    padding: 5px 5px 5px 5px;
+}
+
 .input-container {
     border-radius: .3rem;
 }
@@ -72,10 +78,18 @@
     color: white;
     font-weight: bold;
     font-size: 18px;
-
 }
 
 .five-card-text {
     color: white;
-    font-weight: light;
+    font-size: 14px;
+}
+
+.five-card-text {
+    font-weight: bold;
+    font-style: underline;
+}
+
+.blue-background {
+    background-color:var(--primary);
 }
