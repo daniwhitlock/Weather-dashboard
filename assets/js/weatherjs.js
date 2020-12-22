@@ -15,12 +15,17 @@ var cities =[];
 
 
 
+//List out cities saved in local Storage and append to page
+cities =JSON.parse(localStorage.getItem("cities")) || [];
+citiesMakeList(cities);
+
 
 //Multiple Cities list out
-var citiesMakeList = function (cities) {
+function citiesMakeList(cities) {
      // create the list item and add the new city to cities
     //append to front end
     for (var i = 0; i < cities.length; i++) {
+
         var citiesList = $("<li>").addClass("list-group-item").text(cities[i]);
         $("#list-of-cities").append(citiesList);
     }
@@ -31,35 +36,55 @@ var cityMakeList = function (city){
     $("#list-of-cities").append(citiesList);
 };
 
-//List out cities saved in local Storage and append to page
-cities =JSON.parse(localStorage.getItem("cities")) || [];;
-citiesMakeList(cities);
+
+
+$("#list-of-cities").on("click", "li", function() { //.on is addEvent Listener with jquery
+    var clickedCity = $(this).text(); //.val is value for jquery
+    console.log(clickedCity);
     
+    getCurrentDayInfo(clickedCity);
+
+});
+    
+
 
 submitBtnEl.addEventListener("click", function(){
     // console.log(cities);
     var city = cityNameEl.value;
 
     //hide previous cards
-    $(".five-day").hide();
+    // $(".five-day").hide();
 
-    //remove border colors
-    $(uvIndexEl).removeClass("border-pink border-green border-yellow border-orange border-red");
     // console.log(city);
-    cities =JSON.parse(localStorage.getItem("cities")) || [];;
-    cityMakeList(city);
-    getTemperature(city);
+    var cityLowerCase = city.toLowerCase();
+    //Two ways to do same thing .includesOf
+    // if (cities.indexOf(cityLowerCase) === -1){ //since it starts at 0, then it def won't be in there, so then add //indexOf is array method so goes through whole array
+    //     cityMakeList(city);
+        
+    //     //add new city to array then reset localStorage
+    //     cities.push(cityLowerCase;
+    //     // console.log(cities);
+    //     var cityString = JSON.stringify(cities);
+    //     localStorage.setItem("cities", cityString);
+    // }; 
+
+    if(!cities.includes(cityLowerCase)){ //if inside my cities it does not(!) includes city, then add city to list //includes is array method so goes through whole array
+        cityMakeList(city);
+        //add new city to array then reset localStorage
+        cities.push(cityLowerCase);
+        // console.log(cities);
+        var cityString = JSON.stringify(cities);
+        localStorage.setItem("cities", cityString);
+    };
     
-    //add new city to array then reset localStorage
-    cities.push(city);
-    // console.log(cities);
-    var cityString = JSON.stringify(cities);
-    localStorage.setItem("cities", cityString);
-    // console.log(cities);
+    
+    getCurrentDayInfo(city);
+    
+  
 
 });
 
-var getTemperature = function(city) {
+var getCurrentDayInfo = function(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
     fetch(apiUrl)
         .then(function(response){
@@ -70,7 +95,7 @@ var getTemperature = function(city) {
             //grab information from the data spot for city, date, and icon for weather description
             currentCityEl.textContent = city;
             $("#current-day").text(moment().format("DD/MM/YYYY"));
-            console.log(data);
+            // console.log(data);
             var weatherType = data.weather[0].icon;
             weatherIconEl.setAttribute("src", "https://openweathermap.org/img/w/" + weatherType + ".png"); 
 
@@ -84,7 +109,7 @@ var getTemperature = function(city) {
 
             //look in the data to get the coordinates since the UV index api needs the lat and lon coordinates
             getUvIndex(data.coord.lat, data.coord.lon); 
-            fiveDayWeather(city);
+            getfiveDayWeather(city);
         });
 };
 
@@ -95,6 +120,10 @@ var getUvIndex = function(lat, lon) {
             return response.json();
         })
         .then(function(data) {
+            //empty out BEFORE you repopulate to make sure you are starting with a blank state
+            uvIndexEl.textContent ="";
+            //remove border colors
+            $(uvIndexEl).removeClass("border-pink border-green border-yellow border-orange border-red");
             // console.log(data);
             var uvIndex = data.value;
             uvIndexEl.textContent = uvIndex; 
@@ -118,19 +147,20 @@ var getUvIndex = function(lat, lon) {
     ; 
 };
 
-var fiveDayWeather = function(city) {
+var getfiveDayWeather = function(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city+ "&appid=" + apiKey + "&units=imperial";
     fetch(apiUrl)
         .then(function(response) {
             return response.json();
         })
         .then(function(data){
-            console.log(data);
+            $("#future-forecast").empty(); //.empty is  = javascript's .innerHTML = "";
+            // console.log(data);
             //.filter through the list of 40 ---- .includes picks the time from the list
             const dailyData = data.list.filter(day => {  
                 return day.dt_txt.includes("12:00:00")
             });
-            console.log(dailyData);
+            // console.log(dailyData);
             
             for(var i= 0; i < dailyData.length; i++) {
                 //create a div with class of column, then card,  then put the card inside column, and put the data inside the card
@@ -175,4 +205,3 @@ var fiveDayWeather = function(city) {
         });
 };
 
-// make different functions for each call, uv index (latitude and longitude- get from main weather), temperature
