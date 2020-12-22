@@ -37,13 +37,10 @@ var cityMakeList = function (city){
 };
 
 
-
 $("#list-of-cities").on("click", "li", function() { //.on is addEvent Listener with jquery
     var clickedCity = $(this).text(); //.val is value for jquery
-    console.log(clickedCity);
-    
+    console.log(clickedCity); 
     getCurrentDayInfo(clickedCity);
-
 });
     
 
@@ -76,12 +73,7 @@ submitBtnEl.addEventListener("click", function(){
         var cityString = JSON.stringify(cities);
         localStorage.setItem("cities", cityString);
     };
-    
-    
     getCurrentDayInfo(city);
-    
-  
-
 });
 
 var getCurrentDayInfo = function(city) {
