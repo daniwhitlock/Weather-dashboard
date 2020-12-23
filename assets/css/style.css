@@ -4,7 +4,9 @@
     --secondary: rgb(247, 241, 241);
 
 }
-
+.card-100-width {
+    width:100%;
+}
 
 .btn {
     border-radius: .3rem;
