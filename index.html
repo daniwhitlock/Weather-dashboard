@@ -18,50 +18,52 @@
     </header>
 
 
-    <main class="container row justify-space-between">
-        <!-- left column -->
-        <div class="col-md-3 col-sm-4">
-            <div class="card">
-                <h3 class="card-header"> Search for a City: </h3>
-                <div class="card-body">
-                    <input name="city-name" id="city-name" type="text" autofocus="true" class="input-container" />
-                    <button id="submit" class="btn"><i class="fas fa-search"></i></button>
+    <main class="container justify-space-between">
+        <div class = "row no gutters">
+            <!-- left column -->
+            <div class="col-md-4 col-sm-4">
+                <div class="card">
+                    <h3 class="card-header"> Search for a City: </h3>
+                    <div class="card-body">
+                        <input name="city-name" id="city-name" type="text" autofocus="true" class="input-container" />
+                        <button id="submit" class="btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <!-- list saved searches -->
+                    <ul id="list-of-cities" class ="list-group"><span class = "card-header h3"
+                    >Past City Searches:</span>
+                        <!-- in javascript when something is saved, need to have it listed out and DOM populate a div with the searched city that, when click,ed will pull up that cities weather -->
+                    </ul>
+
                 </div>
-                <!-- list saved searches -->
-                <ul id="list-of-cities" class ="list-group"><span class = "card-header h3"
-                >Past City Searches:</span>
-                    <!-- in javascript when something is saved, need to have it listed out and DOM populate a div with the searched city that, when click,ed will pull up that cities weather -->
-                </ul>
-
             </div>
-        </div>
 
-        <!-- right column -->
-        <div class="col-md-9 col-sm-8">
-            <!-- current city, current temp -->
-            <div class="card"> <!--give id and give a width-->
-                <h2 class = "card-header">
-                    <span id="current-city"> City Name: </span>
-                    <span id="current-day"></span>
-                    <img id="weather-icon"><img>   
-                </h2>
-                <!-- This is the current weather -->
-                <p>Temperature: <span id="temperature"><!--current temp for city--></span></p>
-                <p>Humidity: <span id="humidity"><!--current humidity for city--></span></p>
-                <p>Wind Speed: <span id="wind-speed"><!--current wind speed for city--></span></p>
-                <p>UV Index: <span id="uv-index" ><!--current UV index for city--></span></p>
-            </div>
-        
-            <!-- future 5-day forcast -->
-            <div">
-                <h2>5-Day Forecast:</h2>
-                <div class ="" id="future-forecast">
-                                    
+            <!-- right column -->
+            <div class="col-md-8 col-sm-8">
+                <!-- current city, current temp -->
+                <div class="card"> <!--give id and give a width-->
+                    <h2 class = "card-header">
+                        <span id="current-city"> City Name: </span>
+                        <span id="current-day"></span>
+                        <img id="weather-icon"><img>   
+                    </h2>
+                    <!-- This is the current weather -->
+                    <p>Temperature: <span id="temperature"><!--current temp for city--></span></p>
+                    <p>Humidity: <span id="humidity"><!--current humidity for city--></span></p>
+                    <p>Wind Speed: <span id="wind-speed"><!--current wind speed for city--></span></p>
+                    <p>UV Index: <span id="uv-index" ><!--current UV index for city--></span></p>
                 </div>
             
-               
+                <!-- future 5-day forcast -->
+                <div">
+                    <h2>5-Day Forecast:</h2>
+                    <div class ="" id="future-forecast">
+                                        
+                    </div>
+                
+                
+                </div>
+            
             </div>
-           
         </div>
     </main>
 
